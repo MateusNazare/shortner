@@ -52,7 +52,8 @@ app.put("/api/user/:id", (request, response) => {
     // Retornar o usuário atualizado
     // Caso o usuário não exista, exibir status 404 e por uma message
 
-    const id = request.params.id;
+    const { id } = request.params;
+    
     const {
         email,
         name
@@ -61,7 +62,7 @@ app.put("/api/user/:id", (request, response) => {
     const user = users.find((user) => user.id === id);
 
     if (!user) {
-        response.status(404).send({
+        return response.status(404).send({
             message: "User not exist"
         });
     }
@@ -83,7 +84,7 @@ app.delete("/api/user/:id", (request, response) => {
     const userIndex = users.findIndex((user) => user.id === id);
 
     if (userIndex === -1) {
-        response.status(404).send({
+        return response.status(404).send({
             message: "User not exist"
         });
     }
